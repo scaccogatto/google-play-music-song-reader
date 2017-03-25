@@ -25,17 +25,12 @@ const getData = () => {
 }
 
 const publish = () => {
-  let json = getData()
-  if (json.playing) {
-    console.log('writing to file', json.song.title + ' - ' + json.song.artist)
-    fs.writeFile(process.env.USERPROFILE + '\\OneDrive\\Documenti\\stream\\song.txt', json.song.title + ' - ' + json.song.artist, error => {
-      // todo error
-    })
-  } else {
-    fs.writeFile(process.env.USERPROFILE + '\\OneDrive\\Documenti\\stream\\song.txt', '~', error => {
-      // todo error
-    })
-  }
+  try {
+    let json = getData()
+
+    console.log('writing to file', json.playing ? json.song.title + ' - ' + json.song.artist : '~')
+    fs.writeFile(process.env.USERPROFILE + '\\OneDrive\\Documenti\\stream\\song.txt', json.playing ? json.song.title + ' - ' + json.song.artist : '~', error => {})
+  } catch (e) {}
 }
 
 // publish it inside a folder every time
